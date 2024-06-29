@@ -23,7 +23,11 @@ public class NbpController {
     @Operation(
             summary = "Retrieve the average value of currency between Start date and End date"
     )
+    @ApiResponse
+    @ApiResponse(responseCode = "404",description = "404 Not Found", content = { @Content(schema = @Schema())})
+    @ApiResponse(responseCode = "400",description = "400 Bad Request", content = { @Content(schema = @Schema())})
     @GetMapping("/{currency}/{start_date}/{end_date}")
+    @ApiResponse(responseCode = "408",description = "400 Bad Request", content = { @Content(schema = @Schema())})
     public ResponseEntity<Double> average_currency(@PathVariable String currency, @PathVariable LocalDate start_date, @PathVariable LocalDate end_date){
         Double average_value = nbpService.getAverageExchangeRate(currency, start_date, end_date);
         return ResponseEntity.ok(average_value);
